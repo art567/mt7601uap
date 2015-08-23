@@ -399,15 +399,17 @@ endif
 ifeq ($(RT28xx_MODE),AP)
 ifneq ($(findstring 7601,$(CHIPSET)),)
 	cp -f $(RT28xx_DIR)/os/linux/mt$(MODULE)ap.ko /tftpboot
+	rm -f $(RT28xx_DIR)/os/linux/mt$(MODULE)ap.ko.lzma
+	lzma -9 $(RT28xx_DIR)/os/linux/mt$(MODULE)ap.ko
 else
 	cp -f $(RT28xx_DIR)/os/linux/rt$(MODULE)ap.ko /tftpboot
+	rm -f $(RT28xx_DIR)/os/linux/rt$(MODULE)ap.ko.lzma
+	lzma -9 $(RT28xx_DIR)/os/linux/rt$(MODULE)ap.ko
 endif
 ifeq ($(OSABL),YES)
 	cp -f $(RT28xx_DIR)/os/linux/rtutil$(MODULE)ap.ko /tftpboot
 	cp -f $(RT28xx_DIR)/os/linux/rtnet$(MODULE)ap.ko /tftpboot
 endif
-	rm -f os/linux/rt$(MODULE)ap.ko.lzma
-	/root/bin/lzma e os/linux/rt$(MODULE)ap.ko os/linux/rt$(MODULE)ap.ko.lzma
 else	
 ifeq ($(RT28xx_MODE),APSTA)
 	cp -f $(RT28xx_DIR)/os/linux/rt$(MODULE)apsta.ko /tftpboot
